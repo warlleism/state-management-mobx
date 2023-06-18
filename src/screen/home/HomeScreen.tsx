@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import CountScreen from '../count/countScreen';
+import ListItens from '../list-itens/list-itens';
 
 const HomeScreen = ({ CountStore }: any) => {
 
   const { total } = CountStore;
 
   return (
-    <>
+    <ScrollView>
       <View style={styles.container}>
         <Text>Contador</Text>
         <Text style={{ fontSize: 50 }}>{total}</Text>
       </View>
       <CountScreen />
-    </>
+      <ListItens />
+    </ScrollView>
   );
 };
 

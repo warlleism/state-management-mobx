@@ -1,12 +1,16 @@
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action, runInAction } from 'mobx';
+
 
 class CountStore {
   total = 15;
+  data = []
 
   constructor() {
     makeObservable(this, {
       total: observable,
+      data: observable,
       increment: action,
+      getMovies: action,
     });
   }
 
@@ -22,6 +26,21 @@ class CountStore {
         break;
     }
   };
+
+  getMovies = async (event: string) => {
+    if (event == 'call') {
+      const response = await fetch('https://reactnative.dev/movies.json');
+      const json = await response.json();
+
+      runInAction(() => {
+        this.data = json.movies;
+      })
+    } else {
+      this.data = [];
+    }
+  };
+
+
 }
 
 export default new CountStore();
